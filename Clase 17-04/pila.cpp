@@ -7,7 +7,7 @@ pila::pila(){ //constructor vacio
   this->inicio = NULL;
 }
 pila::~pila(){
-nodo * n = inicio;
+ nodo * n = inicio;
   while (n==NULL) {
     nodo * aux = n;
     n = aux->siguiente;
