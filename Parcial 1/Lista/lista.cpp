@@ -16,6 +16,7 @@ class Lista{
 	public:
 		Lista();
 //		BorrarLista();
+		void removerPosicion(int);
 		void Insertar(int);
 		void InsertarUltimo(int);
 		void InsertarPosicion(int, int);
@@ -79,6 +80,21 @@ class Lista{
 			aux2->siguiente = n;
 			n->siguiente=aux1;
 	}
+
+void Lista::removerPosicion(int posicion){
+			nodo* n = new nodo;
+
+			n->siguiente = NULL;
+			nodo * aux1 = new nodo;
+			nodo * aux2 = new nodo;
+			aux1=inicio;
+			for ( i = 1; i < posicion; i++) {
+					aux2 = aux1;
+					aux1 = aux1->siguiente;
+				}
+				aux2->siguiente = aux1->siguiente;
+				delete aux1;
+		}
 
 //Nodo Mayor
 void Lista::Mayor(){
@@ -221,11 +237,12 @@ int main(){
 	l1.Insertar(1);
 	l1.Insertar(9);
 	l1.InsertarUltimo(119);
-	l1.InsertarPosicion(100, posicion);
+	l1.InsertarPosicion(100, 2);
 
 	l1.Insertar(2);
   cout<<"Mostrar: \n";
   l1.Mostrar();
+	l1.removerPosicion(posicion);
   cout<<"\nMostrar Recursivamente: ";
   l1.mostrarRecursiva();
   cout<<"\n";
@@ -246,5 +263,8 @@ std::cout << "Invertir:" << '\n';
 	cout<<"\n";
 	l1.Mayor();
 	cout<<"\n";
+	cout<<"se removio el elemento en la posicion ["<<posicion<<"]:";
+	l1.removerPosicion(posicion);
+	l1.mostrarRecursiva();
 return 0;
 }
