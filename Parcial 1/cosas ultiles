@@ -1,0 +1,7 @@
+// Compilar con la opción -g
+$g++ -g -Wall Lista.cpp -o Lista
+// Usar valgrind para analizar la asignación de memoria
+$valgrind --leak-check=yes ./Lista
+
+
+
