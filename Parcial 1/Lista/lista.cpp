@@ -20,16 +20,19 @@ class Lista{
 		void Insertar(int);
 		void InsertarUltimo(int);
 		void InsertarPosicion(int, int);
+		void InsertarOrden(int);
 		void Menor();
 		void Mayor();
 		void Mostrar();
     void mostrarRecursiva();
 		void esta_vacia();
 		void longitud();
+		int longitud1();
 		void longitudRecursiva();
 		void remover();
     void removerUltimo();
 		void invertirRecursiva();
+		bool compararLista(Lista, Lista);
 
 		~Lista(){ //destructor
 			nodo* n = inicio;
@@ -81,6 +84,26 @@ class Lista{
 			n->siguiente=aux1;
 	}
 
+	void Lista::InsertarOrden(int dato){
+		nodo * n = new nodo;
+		nodo * aux1 = new nodo;
+		nodo * aux2 = new nodo;
+		aux1 = inicio;
+		while (aux1!=NULL && aux1->dato>dato) {
+			aux2 = aux1;
+			aux1 = aux1->siguiente;
+		}
+/*
+		if(inicio==NULL){
+			inicio = n;
+		}
+		else{
+			aux2->siguiente=n;
+		}*/
+		aux2->siguiente = n;
+		n->siguiente = aux1;
+	}
+
 void Lista::removerPosicion(int posicion){
 			nodo* n = new nodo;
 
@@ -123,12 +146,19 @@ void Lista::Mayor(){
 //Mostrar lista:
 	void Lista::Mostrar(){
 		nodo* aux = inicio;
-		while(aux!=NULL){
-			cout<<"numeros: "<<aux->dato<<endl;
-			aux = aux->siguiente;
+		if(inicio==NULL){
+			inicio = aux->siguiente;
+
+		}
+		else{
+			while(aux!=NULL){
+				cout<<"numeros: "<<aux->dato<<endl;
+				aux = aux->siguiente;
 			}
 		}
+		}
 //Mostrar Recursivamente:
+
   void Lista::mostrarRecursiva(nodo* aux){
     if(aux==NULL){
       cout<<" \n"	;
@@ -171,18 +201,19 @@ void Lista::Mayor(){
         }
 //Mostrar longitudRecursiva:
     void Lista::longitudRecursiva(){
-      longitudRecursiva(inicio);
+
+			longitudRecursiva(inicio);
     }
 
     void Lista::longitudRecursiva(nodo* aux){
-      if(aux==NULL){
-        cout<<"Longitud Recursiva: "<<i;
-        return;
-      }
-      else{
-        i++;
-        longitudRecursiva(aux->siguiente);
-      }
+			if(aux==NULL){
+				cout<<"Longitud recursiva: "<<i	;
+				return ;
+			}
+			else{
+				i++;
+				longitudRecursiva(aux->siguiente);
+			}
     }
 
 	void Lista::remover(){
@@ -226,30 +257,58 @@ void Lista::Mayor(){
 			invertirRecursiva(inicio);
 
 		}
-
-
+		int Lista::longitud1(){
+      nodo* aux = inicio;
+      int i=0;
+      while(aux!=NULL){
+        i++;
+        aux = aux->siguiente;
+        }
+          return i;
+        }
+bool Lista::compararLista(Lista l1, Lista l2){
+	nodo * aux1 = l1.inicio;
+	nodo * aux2 = l2.inicio;
+	if(l1.longitud1()!= l2.longitud1()){
+		return false;
+	}
+	else{
+		while(aux1!=NULL){
+			if(aux1->dato==aux2->dato){
+				aux1=aux1->siguiente;
+				aux2=aux2->siguiente;
+			}
+			else{
+				return false;
+			}
+		}
+		return true;
+	}
+}
 int main(){
-	int posicion = 3;
+	int posicion =4;
 	Lista l1;
+	Lista l2;
 
 
-	l1.Insertar(5);
 	l1.Insertar(1);
-	l1.Insertar(9);
-	l1.InsertarUltimo(119);
-	l1.InsertarPosicion(100, 2);
+	l1.Insertar(3);
+	l1.Insertar(4);
+	l1.Insertar(5);
+	l1.InsertarUltimo(8);
+	l1.InsertarPosicion(2, 2);
 
-	l1.Insertar(2);
-  cout<<"Mostrar: \n";
+  cout<<"---Mostrar--- \n";
   l1.Mostrar();
 	l1.removerPosicion(posicion);
   cout<<"\nMostrar Recursivamente: ";
   l1.mostrarRecursiva();
   cout<<"\n";
-	l1.longitud();
+	//l1.longitud();
   cout<<"\n";
+
   l1.longitudRecursiva();
-  cout<<"\n";
+	/*cout<<"\n";
   l1.remover();
   cout<<"\nRemover Primer elemento: \n";
   l1.mostrarRecursiva();
@@ -266,5 +325,9 @@ std::cout << "Invertir:" << '\n';
 	cout<<"se removio el elemento en la posicion ["<<posicion<<"]:";
 	l1.removerPosicion(posicion);
 	l1.mostrarRecursiva();
+	cout<<"se ingreso el elemento en orden: \n";
+	l1.InsertarOrden(4);
+	l1.Mostrar();
+	cout<<(l1.compararLista(l1, l2)?"son iguales":"Distintos");*/
 return 0;
 }
